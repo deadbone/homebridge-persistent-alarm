@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0-alpha.4
+
+- Limit `delay.hours` to 168 hours in both validation and Homebridge UI schema.
+
 ## 0.1.0-alpha.3
 
 - Replace public `delaySeconds` configuration with a structured `delay` object containing `hours`, `minutes`, and `seconds`.
