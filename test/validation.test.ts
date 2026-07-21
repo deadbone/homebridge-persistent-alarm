@@ -33,6 +33,34 @@ describe('configuration validation', () => {
     })).toThrow(ConfigValidationError);
   });
 
+  it('allows one-shot alarms whose motion duration is longer than the delay', () => {
+    const config = normalizeConfig({
+      platform: 'PersistentAlarm',
+      alarms: [{
+        id: 'short-once',
+        name: 'Short Once',
+        delaySeconds: 5,
+        motionDurationSeconds: 10,
+        repeatMode: 'once',
+      }],
+    });
+
+    expect(config.alarms[0]?.repeatMode).toBe('once');
+  });
+
+  it('rejects repeated alarms whose motion duration overlaps the next occurrence', () => {
+    expect(() => normalizeConfig({
+      platform: 'PersistentAlarm',
+      alarms: [{
+        id: 'short-repeat',
+        name: 'Short Repeat',
+        delaySeconds: 5,
+        motionDurationSeconds: 10,
+        repeatMode: 'infinite',
+      }],
+    })).toThrow(/delaySeconds must be greater than motionDurationSeconds for repeated alarms/u);
+  });
+
   it('rejects invalid IDs, delays, durations, repeat modes, and unsafe cycles', () => {
     expect(() => normalizeConfig({
       platform: 'PersistentAlarm',
@@ -44,7 +72,7 @@ describe('configuration validation', () => {
         repeatMode: 'sometimes',
         repeatCount: 0,
       }],
-    })).toThrow(/delaySeconds must be greater than motionDurationSeconds/u);
+    })).toThrow(ConfigValidationError);
   });
 });
 
