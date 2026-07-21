@@ -28,7 +28,7 @@
         "items": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["id", "name", "delaySeconds", "motionDurationSeconds", "repeatMode"],
+          "required": ["id", "name", "delay", "motionDurationSeconds", "repeatMode"],
           "properties": {
             "id": {
               "title": "Stable Alarm ID",
@@ -40,12 +40,34 @@
               "title": "HomeKit Name",
               "type": "string"
             },
-            "delaySeconds": {
+            "delay": {
               "title": "Delay Before Trigger",
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 31622400,
-              "description": "Delay in seconds before the first trigger and between repeat occurrences."
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Delay before the first trigger and between repeat occurrences.",
+              "properties": {
+                "hours": {
+                  "title": "Hours",
+                  "type": "integer",
+                  "default": 0,
+                  "minimum": 0,
+                  "maximum": 8784
+                },
+                "minutes": {
+                  "title": "Minutes",
+                  "type": "integer",
+                  "default": 0,
+                  "minimum": 0,
+                  "maximum": 59
+                },
+                "seconds": {
+                  "title": "Seconds",
+                  "type": "integer",
+                  "default": 0,
+                  "minimum": 0,
+                  "maximum": 59
+                }
+              }
             },
             "motionDurationSeconds": {
               "title": "Motion Active Duration",

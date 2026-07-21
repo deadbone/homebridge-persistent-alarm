@@ -50,7 +50,7 @@ function normalizeAlarms(value: unknown, issues: string[]): readonly NormalizedA
     }
     ids.add(id);
 
-    const delaySeconds = boundedInteger(alarm.delaySeconds, 1, 366 * 24 * 60 * 60, `${label}.delaySeconds`, issues);
+    const delaySeconds = normalizeDuration(alarm.delay, `${label}.delay`, issues);
     const motionDurationSeconds = boundedInteger(alarm.motionDurationSeconds, 1, 24 * 60 * 60, `${label}.motionDurationSeconds`, issues);
     const repeatMode = normalizeRepeatMode(alarm.repeatMode, `${label}.repeatMode`, issues);
 
@@ -90,6 +90,23 @@ function normalizeRepeatMode(value: unknown, label: string, issues: string[]): R
     return DEFAULTS.repeatMode;
   }
   return value as RepeatMode;
+}
+
+function normalizeDuration(value: unknown, label: string, issues: string[]): number {
+  if (!isRecord(value)) {
+    issues.push(`${label} is required`);
+    return 1;
+  }
+
+  const hours = boundedInteger(value.hours, 0, 366 * 24, `${label}.hours`, issues, 0);
+  const minutes = boundedInteger(value.minutes, 0, 59, `${label}.minutes`, issues, 0);
+  const seconds = boundedInteger(value.seconds, 0, 59, `${label}.seconds`, issues, 0);
+  const totalSeconds = (hours * 60 * 60) + (minutes * 60) + seconds;
+  if (totalSeconds <= 0) {
+    issues.push(`${label} must be greater than zero`);
+    return 1;
+  }
+  return totalSeconds;
 }
 
 function boundedInteger(value: unknown, min: number, max: number, label: string, issues: string[], fallback?: number): number {

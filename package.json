@@ -2,7 +2,7 @@
   "name": "homebridge-persistent-alarm",
   "displayName": "Persistent Alarm",
   "type": "module",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "private": false,
   "description": "Homebridge plugin for persistent absolute-time scheduled alarms.",
   "author": "Thierry Lubrez",

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-alpha.3
+
+- Replace public `delaySeconds` configuration with a structured `delay` object containing `hours`, `minutes`, and `seconds`.
+- Keep normalized internal scheduling in seconds while simplifying Homebridge UI entry for hour-based alarms.
+
 ## 0.1.0-alpha.2
 
 - Allow repeated alarms even when `motionDurationSeconds` is greater than or equal to `delaySeconds`.
@@ -8,7 +13,7 @@
 ## 0.1.0-alpha.1
 
 - Fixed configuration validation so one-shot alarms may use a motion duration longer than the delay.
-- Kept the overlap guard for repeated alarms, where `delaySeconds` must remain greater than `motionDurationSeconds`.
+- Initially kept the overlap guard for repeated alarms; this was relaxed in `0.1.0-alpha.2`.
 
 ## 0.1.0-alpha.0
 

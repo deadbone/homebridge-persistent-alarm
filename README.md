@@ -47,7 +47,7 @@ npm link
 
 ## Homebridge UI configuration
 
-Each alarm needs a stable `id`, a HomeKit `name`, `delaySeconds`, `motionDurationSeconds`, and `repeatMode`.
+Each alarm needs a stable `id`, a HomeKit `name`, `delay`, `motionDurationSeconds`, and `repeatMode`.
 
 ## Example configuration
 
@@ -60,7 +60,11 @@ Each alarm needs a stable `id`, a HomeKit `name`, `delaySeconds`, `motionDuratio
     {
       "id": "washing-machine",
       "name": "Washing Machine Reminder",
-      "delaySeconds": 14400,
+      "delay": {
+        "hours": 4,
+        "minutes": 0,
+        "seconds": 0
+      },
       "motionDurationSeconds": 10,
       "repeatMode": "count",
       "repeatCount": 3,
@@ -118,7 +122,7 @@ Accessory UUIDs are based on a plugin namespace, alarm ID, and role. Renaming an
 
 ## Troubleshooting
 
-If an alarm does not fire, check that the alarm ID is unique, `delaySeconds` is greater than `motionDurationSeconds`, and Homebridge has write access to its persistence directory. Enable `debug` for more operational logs.
+If an alarm does not fire, check that the alarm ID is unique, `delay` is greater than zero, and Homebridge has write access to its persistence directory. Enable `debug` for more operational logs.
 
 ## Security and privacy
 
@@ -204,7 +208,7 @@ npm link
 
 ## Configuration Homebridge UI
 
-Chaque alarme demande un `id` stable, un `name`, `delaySeconds`, `motionDurationSeconds` et `repeatMode`.
+Chaque alarme demande un `id` stable, un `name`, `delay`, `motionDurationSeconds` et `repeatMode`.
 
 ## Exemple de configuration
 
@@ -256,7 +260,7 @@ Les UUID dependent d'un namespace du plugin, de l'ID stable et du role. Renommer
 
 ## Depannage
 
-Verifiez que l'ID est unique, que `delaySeconds` est superieur a `motionDurationSeconds`, et que Homebridge peut ecrire dans son repertoire de persistance. Activez `debug` pour plus de logs.
+Verifiez que l'ID est unique, que `delay` est superieur a zero, et que Homebridge peut ecrire dans son repertoire de persistance. Activez `debug` pour plus de logs.
 
 ## Securite et confidentialite
 

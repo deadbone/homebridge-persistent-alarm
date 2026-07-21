@@ -8,7 +8,7 @@ describe('configuration validation', () => {
       alarms: [{
         id: 'washing-machine',
         name: 'Washing Machine',
-        delaySeconds: 3600,
+        delay: { hours: 1, minutes: 0, seconds: 0 },
         motionDurationSeconds: 10,
         repeatMode: 'count',
         repeatCount: 3,
@@ -39,7 +39,7 @@ describe('configuration validation', () => {
       alarms: [{
         id: 'short-once',
         name: 'Short Once',
-        delaySeconds: 5,
+        delay: { seconds: 5 },
         motionDurationSeconds: 10,
         repeatMode: 'once',
       }],
@@ -54,7 +54,7 @@ describe('configuration validation', () => {
       alarms: [{
         id: 'short-repeat',
         name: 'Short Repeat',
-        delaySeconds: 5,
+        delay: { seconds: 5 },
         motionDurationSeconds: 10,
         repeatMode: 'infinite',
       }],
@@ -63,13 +63,36 @@ describe('configuration validation', () => {
     expect(config.alarms[0]?.repeatMode).toBe('infinite');
   });
 
+  it('rejects missing or empty structured delays', () => {
+    expect(() => normalizeConfig({
+      platform: 'PersistentAlarm',
+      alarms: [{
+        id: 'missing-delay',
+        name: 'Missing Delay',
+        motionDurationSeconds: 10,
+        repeatMode: 'once',
+      }],
+    })).toThrow(/delay is required/u);
+
+    expect(() => normalizeConfig({
+      platform: 'PersistentAlarm',
+      alarms: [{
+        id: 'empty-delay',
+        name: 'Empty Delay',
+        delay: {},
+        motionDurationSeconds: 10,
+        repeatMode: 'once',
+      }],
+    })).toThrow(/delay must be greater than zero/u);
+  });
+
   it('rejects invalid IDs, delays, durations, repeat modes, and unsafe cycles', () => {
     expect(() => normalizeConfig({
       platform: 'PersistentAlarm',
       alarms: [{
         id: 'bad id',
         name: 'Bad',
-        delaySeconds: 5,
+        delay: { seconds: 5 },
         motionDurationSeconds: 10,
         repeatMode: 'sometimes',
         repeatCount: 0,
@@ -82,7 +105,7 @@ function alarm(id: string) {
   return {
     id,
     name: id,
-    delaySeconds: 60,
+    delay: { minutes: 1 },
     motionDurationSeconds: 10,
     repeatMode: 'once',
   };
