@@ -4,10 +4,16 @@ export interface HomeKitExposureConfig {
   readonly cancelSwitch?: boolean;
 }
 
+export interface DurationConfig {
+  readonly hours?: number;
+  readonly minutes?: number;
+  readonly seconds?: number;
+}
+
 export interface AlarmConfig {
   readonly id?: string;
   readonly name?: string;
-  readonly delaySeconds?: number;
+  readonly delay?: DurationConfig;
   readonly motionDurationSeconds?: number;
   readonly repeatMode?: RepeatMode;
   readonly repeatCount?: number;
