@@ -14,6 +14,13 @@ export const sampleAlarm: NormalizedAlarmConfig = {
   repeatCount: 1,
   homekitExposure: {
     cancelSwitch: true,
+    remainingTime: false,
+  },
+  accessoryNames: {
+    trigger: 'Washing Machine Reminder Trigger',
+    motion: 'Washing Machine Reminder Motion',
+    reset: 'Washing Machine Reminder Reset',
+    countdown: 'Washing Machine Reminder Countdown',
   },
 };
 
