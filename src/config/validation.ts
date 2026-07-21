@@ -60,9 +60,11 @@ function normalizeAlarms(value: unknown, issues: string[]): readonly NormalizedA
       issues.push(`${label}.repeatCount must be at least 1 when repeatMode is count`);
     }
 
+    const name = cleanRequiredString(alarm.name, `${label}.name`, issues);
+
     return {
       id,
-      name: cleanRequiredString(alarm.name, `${label}.name`, issues),
+      name,
       delaySeconds,
       motionDurationSeconds,
       repeatMode,
@@ -71,8 +73,32 @@ function normalizeAlarms(value: unknown, issues: string[]): readonly NormalizedA
         cancelSwitch: optionalBoolean(alarm.homekitExposure?.cancelSwitch, DEFAULTS.cancelSwitch, `${label}.homekitExposure.cancelSwitch`, issues),
         remainingTime: optionalBoolean(alarm.homekitExposure?.remainingTime, DEFAULTS.remainingTime, `${label}.homekitExposure.remainingTime`, issues),
       },
+      accessoryNames: normalizeAccessoryNames(alarm.accessoryNames, name, label, issues),
     };
   });
+}
+
+function normalizeAccessoryNames(value: unknown, alarmName: string, label: string, issues: string[]) {
+  if (value !== undefined && !isRecord(value)) {
+    issues.push(`${label}.accessoryNames must be an object`);
+    return defaultAccessoryNames(alarmName);
+  }
+
+  return {
+    trigger: optionalAccessoryName(value?.trigger, `${alarmName} Trigger`, `${label}.accessoryNames.trigger`, issues),
+    motion: optionalAccessoryName(value?.motion, `${alarmName} Motion`, `${label}.accessoryNames.motion`, issues),
+    reset: optionalAccessoryName(value?.reset, `${alarmName} Reset`, `${label}.accessoryNames.reset`, issues),
+    countdown: optionalAccessoryName(value?.countdown, `${alarmName} Countdown`, `${label}.accessoryNames.countdown`, issues),
+  };
+}
+
+function defaultAccessoryNames(alarmName: string) {
+  return {
+    trigger: `${alarmName} Trigger`,
+    motion: `${alarmName} Motion`,
+    reset: `${alarmName} Reset`,
+    countdown: `${alarmName} Countdown`,
+  };
 }
 
 function cleanId(value: unknown, label: string, issues: string[]): string {
@@ -138,6 +164,17 @@ function optionalString(value: unknown, fallback: string, label: string, issues:
     return fallback;
   }
   return cleanRequiredString(value, label, issues) || fallback;
+}
+
+function optionalAccessoryName(value: unknown, fallback: string, label: string, issues: string[]): string {
+  if (value === undefined) {
+    return fallback;
+  }
+  if (typeof value !== 'string' || value.trim().length === 0) {
+    issues.push(`${label} must be a non-empty string`);
+    return fallback;
+  }
+  return value.trim();
 }
 
 function cleanRequiredString(value: unknown, label: string, issues: string[]): string {
