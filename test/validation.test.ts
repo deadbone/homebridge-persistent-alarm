@@ -86,6 +86,19 @@ describe('configuration validation', () => {
     })).toThrow(/delay must be greater than zero/u);
   });
 
+  it('rejects delay hours beyond one week', () => {
+    expect(() => normalizeConfig({
+      platform: 'PersistentAlarm',
+      alarms: [{
+        id: 'too-long',
+        name: 'Too Long',
+        delay: { hours: 169 },
+        motionDurationSeconds: 10,
+        repeatMode: 'once',
+      }],
+    })).toThrow(/delay.hours must be an integer between 0 and 168/u);
+  });
+
   it('rejects invalid IDs, delays, durations, repeat modes, and unsafe cycles', () => {
     expect(() => normalizeConfig({
       platform: 'PersistentAlarm',

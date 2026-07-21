@@ -3,6 +3,7 @@ import { DEFAULTS, EMPTY_CONFIG } from './defaults.js';
 
 const ID_PATTERN = /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$/u;
 const REPEAT_MODES = new Set<RepeatMode>(['once', 'count', 'infinite']);
+const MAX_DELAY_HOURS = 168;
 
 export class ConfigValidationError extends Error {
   public constructor(public readonly issues: readonly string[]) {
@@ -98,7 +99,7 @@ function normalizeDuration(value: unknown, label: string, issues: string[]): num
     return 1;
   }
 
-  const hours = boundedInteger(value.hours, 0, 366 * 24, `${label}.hours`, issues, 0);
+  const hours = boundedInteger(value.hours, 0, MAX_DELAY_HOURS, `${label}.hours`, issues, 0);
   const minutes = boundedInteger(value.minutes, 0, 59, `${label}.minutes`, issues, 0);
   const seconds = boundedInteger(value.seconds, 0, 59, `${label}.seconds`, issues, 0);
   const totalSeconds = (hours * 60 * 60) + (minutes * 60) + seconds;
