@@ -168,6 +168,7 @@ export class AlarmController {
   private async setMotion(): Promise<void> {
     const activeUntil = new Date(this.clock.now().getTime() + this.config.motionDurationSeconds * 1000);
     if (this.state.sensorActiveUntil) {
+      this.sensorScheduler.cancel();
       this.callbacks.updateMotion(false);
     }
     this.callbacks.updateMotion(true);

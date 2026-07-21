@@ -48,8 +48,8 @@ describe('configuration validation', () => {
     expect(config.alarms[0]?.repeatMode).toBe('once');
   });
 
-  it('rejects repeated alarms whose motion duration overlaps the next occurrence', () => {
-    expect(() => normalizeConfig({
+  it('allows repeated alarms whose motion duration overlaps the next occurrence', () => {
+    const config = normalizeConfig({
       platform: 'PersistentAlarm',
       alarms: [{
         id: 'short-repeat',
@@ -58,7 +58,9 @@ describe('configuration validation', () => {
         motionDurationSeconds: 10,
         repeatMode: 'infinite',
       }],
-    })).toThrow(/delaySeconds must be greater than motionDurationSeconds for repeated alarms/u);
+    });
+
+    expect(config.alarms[0]?.repeatMode).toBe('infinite');
   });
 
   it('rejects invalid IDs, delays, durations, repeat modes, and unsafe cycles', () => {
