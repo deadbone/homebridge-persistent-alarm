@@ -53,9 +53,6 @@ function normalizeAlarms(value: unknown, issues: string[]): readonly NormalizedA
     const delaySeconds = boundedInteger(alarm.delaySeconds, 1, 366 * 24 * 60 * 60, `${label}.delaySeconds`, issues);
     const motionDurationSeconds = boundedInteger(alarm.motionDurationSeconds, 1, 24 * 60 * 60, `${label}.motionDurationSeconds`, issues);
     const repeatMode = normalizeRepeatMode(alarm.repeatMode, `${label}.repeatMode`, issues);
-    if (repeatMode !== 'once' && delaySeconds <= motionDurationSeconds) {
-      issues.push(`${label}.delaySeconds must be greater than motionDurationSeconds for repeated alarms to guarantee a clean motion cycle`);
-    }
 
     const repeatCount = boundedInteger(alarm.repeatCount, 1, 10000, `${label}.repeatCount`, issues, DEFAULTS.repeatCount);
     if (repeatMode === 'count' && repeatCount < 1) {

@@ -84,6 +84,27 @@ describe('AlarmController', () => {
     expect(harness.controller.getState().triggerAt).toBe('2026-07-21T08:02:00.000Z');
   });
 
+  it('forces a clean motion cycle when repeat delay overlaps motion duration', async () => {
+    const harness = await createHarness({
+      delaySeconds: 5,
+      motionDurationSeconds: 10,
+      repeatMode: 'count',
+      repeatCount: 2,
+    });
+    await harness.controller.trigger();
+
+    harness.clock.advance(5);
+    await harness.controller.checkTrigger();
+    harness.clock.advance(5);
+    await harness.controller.checkTrigger();
+
+    expect(harness.motion.mock.calls).toContainEqual([false]);
+    expect(harness.motion.mock.calls.at(-2)).toEqual([false]);
+    expect(harness.motion.mock.calls.at(-1)).toEqual([true]);
+    expect(harness.controller.getState().completedTriggers).toBe(2);
+    expect(harness.controller.getState().triggerAt).toBeNull();
+  });
+
   it('cancels schedules and active sensors only through reset', async () => {
     const harness = await createHarness();
     await harness.controller.trigger();
