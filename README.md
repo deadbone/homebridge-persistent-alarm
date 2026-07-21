@@ -49,6 +49,18 @@ npm link
 
 Each alarm needs a stable `id`, a HomeKit `name`, `delay`, `motionDurationSeconds`, and `repeatMode`.
 
+Duration fields are split for easier Homebridge UI entry:
+
+```json
+{
+  "delay": {
+    "hours": 4,
+    "minutes": 0,
+    "seconds": 0
+  }
+}
+```
+
 ## Example configuration
 
 ```json
@@ -119,6 +131,22 @@ Accessory UUIDs are based on a plugin namespace, alarm ID, and role. Renaming an
 - Start a washing machine reminder by turning the trigger switch ON.
 - Run a HomeKit automation when the motion sensor detects motion.
 - Cancel a pending reminder by turning the reset switch ON.
+
+Example: a 30 minute repeating reminder until reset:
+
+```json
+{
+  "id": "laundry-repeat",
+  "name": "Laundry Repeat Reminder",
+  "delay": {
+    "hours": 0,
+    "minutes": 30,
+    "seconds": 0
+  },
+  "motionDurationSeconds": 10,
+  "repeatMode": "infinite"
+}
+```
 
 ## Troubleshooting
 
@@ -210,6 +238,18 @@ npm link
 
 Chaque alarme demande un `id` stable, un `name`, `delay`, `motionDurationSeconds` et `repeatMode`.
 
+Les champs de duree sont separes pour faciliter la saisie dans Homebridge UI:
+
+```json
+{
+  "delay": {
+    "hours": 4,
+    "minutes": 0,
+    "seconds": 0
+  }
+}
+```
+
 ## Exemple de configuration
 
 Voir l'exemple JSON de la section anglaise; les noms peuvent etre adaptes.
@@ -257,6 +297,22 @@ Les UUID dependent d'un namespace du plugin, de l'ID stable et du role. Renommer
 - Lancer un rappel de machine a laver via le switch de declenchement.
 - Declencher une automatisation HomeKit quand le detecteur passe a Motion Detected.
 - Annuler un rappel avec le switch reset.
+
+Exemple: un rappel toutes les 30 minutes jusqu'au reset:
+
+```json
+{
+  "id": "laundry-repeat",
+  "name": "Rappel Linge",
+  "delay": {
+    "hours": 0,
+    "minutes": 30,
+    "seconds": 0
+  },
+  "motionDurationSeconds": 10,
+  "repeatMode": "infinite"
+}
+```
 
 ## Depannage
 
