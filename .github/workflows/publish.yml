@@ -13,7 +13,7 @@ permissions:
   pull-requests: read
 
 jobs:
-  publish-beta:
+  publish-alpha:
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
@@ -28,10 +28,11 @@ jobs:
       - run: npm run build
       - run: npm test
       - run: npm run verify:pack
-      - name: Publish beta
+      - name: Publish alpha
         run: |
-          npm version --no-git-tag-version "$(node -p "require('./package.json').version")-beta.pr.${{ github.event.pull_request.number }}.${{ github.run_number }}.${{ github.run_attempt }}"
-          npm publish --tag beta --provenance
+          BASE_VERSION="$(node -p "require('./package.json').version.split('-')[0]")"
+          npm version --no-git-tag-version "${BASE_VERSION}-alpha.pr.${{ github.event.pull_request.number }}.${{ github.run_number }}.${{ github.run_attempt }}"
+          npm publish --tag alpha --provenance
 
   publish-stable:
     if: github.event_name == 'push'
