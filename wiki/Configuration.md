@@ -79,6 +79,12 @@ The reset logic still exists internally, but the HomeKit reset switch is not exp
   "homekitExposure": {
     "cancelSwitch": false,
     "remainingTime": false
+  },
+  "accessoryNames": {
+    "trigger": "Start Water Heater Reminder",
+    "motion": "Water Heater Reminder Due",
+    "reset": "Cancel Water Heater Reminder",
+    "countdown": "Water Heater Time Remaining"
   }
 }
 ```
@@ -93,6 +99,10 @@ The reset logic still exists internally, but the HomeKit reset switch is not exp
 - `repeatCount`: total number of triggers when `repeatMode` is `count`.
 - `homekitExposure.cancelSwitch`: show or hide the optional reset switch.
 - `homekitExposure.remainingTime`: show or hide the optional countdown accessory with HomeKit `Remaining Duration`.
+- `accessoryNames.trigger`: optional full HomeKit name for the trigger switch.
+- `accessoryNames.motion`: optional full HomeKit name for the motion sensor.
+- `accessoryNames.reset`: optional full HomeKit name for the reset switch.
+- `accessoryNames.countdown`: optional full HomeKit name for the countdown accessory.
 
 ## Francais
 
@@ -175,6 +185,12 @@ La logique reset existe toujours dans le plugin, mais le switch reset n'est pas 
   "homekitExposure": {
     "cancelSwitch": false,
     "remainingTime": false
+  },
+  "accessoryNames": {
+    "trigger": "Lancer Rappel Chauffe-eau",
+    "motion": "Rappel Chauffe-eau Pret",
+    "reset": "Annuler Rappel Chauffe-eau",
+    "countdown": "Temps restant Chauffe-eau"
   }
 }
 ```
@@ -189,3 +205,7 @@ La logique reset existe toujours dans le plugin, mais le switch reset n'est pas 
 - `repeatCount`: nombre total de declenchements quand `repeatMode` vaut `count`.
 - `homekitExposure.cancelSwitch`: affiche ou masque le switch reset optionnel.
 - `homekitExposure.remainingTime`: affiche ou masque l'accessoire optionnel de compte a rebours avec `Remaining Duration` HomeKit.
+- `accessoryNames.trigger`: nom HomeKit complet optionnel pour le switch de declenchement.
+- `accessoryNames.motion`: nom HomeKit complet optionnel pour le detecteur de mouvement.
+- `accessoryNames.reset`: nom HomeKit complet optionnel pour le switch reset.
+- `accessoryNames.countdown`: nom HomeKit complet optionnel pour l'accessoire de compte a rebours.

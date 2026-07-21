@@ -84,6 +84,12 @@ Duration fields are split for easier Homebridge UI entry:
       "homekitExposure": {
         "cancelSwitch": true,
         "remainingTime": false
+      },
+      "accessoryNames": {
+        "trigger": "Start Washing Machine Reminder",
+        "motion": "Washing Machine Reminder Due",
+        "reset": "Cancel Washing Machine Reminder",
+        "countdown": "Washing Machine Time Remaining"
       }
     }
   ]
@@ -95,6 +101,8 @@ Duration fields are split for easier Homebridge UI entry:
 For each alarm, the plugin exposes a trigger switch, a motion sensor, and by default a cancel/reset switch. The trigger switch is a momentary button. It is not an armed-state indicator.
 
 Set `homekitExposure.remainingTime` to `true` to expose an additional countdown accessory. It uses a HomeKit valve service so apps that show `Remaining Duration`, such as Eve, can display the seconds remaining before the next scheduled trigger. The accessory is status-only for this plugin: changing its Active or Set Duration controls from a HomeKit app does not start, cancel, or reschedule the alarm.
+
+Use `accessoryNames` to override the generated HomeKit names for individual accessories. Supported fields are `trigger`, `motion`, `reset`, and `countdown`. These are display names only; UUIDs remain based on the stable alarm `id` and accessory role.
 
 ## Nicolas baseline behavior
 
@@ -177,7 +185,7 @@ npm run verify:pack
 
 ## Publishing
 
-Stable publishing is tag-based and uses npm Trusted Publishing through GitHub Actions. Do not publish stable releases without an explicit release decision.
+Stable publishing is tag-based and uses npm Trusted Publishing through GitHub Actions. The first stable package version is `0.1.0`. Do not publish stable releases without an explicit release decision.
 
 ## Beta versions
 
@@ -264,6 +272,8 @@ Chaque alarme expose un interrupteur de declenchement, un detecteur de mouvement
 
 Reglez `homekitExposure.remainingTime` sur `true` pour exposer un accessoire de compte a rebours supplementaire. Il utilise un service HomeKit de type valve afin que les apps qui affichent `Remaining Duration`, comme Eve, puissent afficher les secondes restantes avant le prochain declenchement programme. Cet accessoire est informatif pour ce plugin: modifier ses controles Active ou Set Duration depuis une app HomeKit ne demarre pas, n'annule pas et ne reprogramme pas l'alarme.
 
+Utilisez `accessoryNames` pour remplacer les noms HomeKit generes pour chaque accessoire. Les champs disponibles sont `trigger`, `motion`, `reset` et `countdown`. Ce sont uniquement des noms d'affichage; les UUID restent bases sur l'`id` stable de l'alarme et le role de l'accessoire.
+
 ## Comportement de base demande par Nicolas
 
 Avec un delai de 4 heures, si l'utilisateur active l'interrupteur a 08:32, le plugin stocke une date absolue pour 12:32. Le retour de l'interrupteur a OFF, automatique ou manuel, n'annule pas l'alarme. Seul l'interrupteur d'annulation/reinitialisation l'annule.
@@ -345,7 +355,7 @@ npm run verify:pack
 
 ## Publication
 
-La publication stable se fait par tag et npm Trusted Publishing. Ne publiez pas de version stable sans decision explicite.
+La publication stable se fait par tag et npm Trusted Publishing. La premiere version stable du package est `0.1.0`. Ne publiez pas de version stable sans decision explicite.
 
 ## Versions beta
 

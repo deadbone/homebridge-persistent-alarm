@@ -100,28 +100,28 @@ export class PersistentAlarmPlatform implements DynamicPlatformPlugin {
   }
 
   private registerTriggerSwitch(alarm: NormalizedAlarmConfig, controller: AlarmController): string {
-    const accessory = this.registerOrRestoreAccessory(alarm, 'trigger-switch', `${sanitizeHomeKitName(alarm.name)} Trigger`);
+    const accessory = this.registerOrRestoreAccessory(alarm, 'trigger-switch', alarm.accessoryNames.trigger);
     const switchAccessory = new TriggerSwitchAccessory(this, accessory, controller);
     this.triggerAccessories.set(alarm.id, switchAccessory);
     return accessory.UUID;
   }
 
   private registerMotionSensor(alarm: NormalizedAlarmConfig): string {
-    const accessory = this.registerOrRestoreAccessory(alarm, 'motion-sensor', `${sanitizeHomeKitName(alarm.name)} Motion`);
+    const accessory = this.registerOrRestoreAccessory(alarm, 'motion-sensor', alarm.accessoryNames.motion);
     const motionAccessory = new MotionSensorAccessory(this, accessory);
     this.motionAccessories.set(alarm.id, motionAccessory);
     return accessory.UUID;
   }
 
   private registerCancelSwitch(alarm: NormalizedAlarmConfig, controller: AlarmController): string {
-    const accessory = this.registerOrRestoreAccessory(alarm, 'cancel-reset-switch', `${sanitizeHomeKitName(alarm.name)} Reset`);
+    const accessory = this.registerOrRestoreAccessory(alarm, 'cancel-reset-switch', alarm.accessoryNames.reset);
     const switchAccessory = new CancelResetSwitchAccessory(this, accessory, controller);
     this.cancelAccessories.set(alarm.id, switchAccessory);
     return accessory.UUID;
   }
 
   private registerCountdownValve(alarm: NormalizedAlarmConfig): string {
-    const accessory = this.registerOrRestoreAccessory(alarm, 'countdown-valve', `${sanitizeHomeKitName(alarm.name)} Countdown`);
+    const accessory = this.registerOrRestoreAccessory(alarm, 'countdown-valve', alarm.accessoryNames.countdown);
     const countdownAccessory = new CountdownValveAccessory(this, accessory);
     this.countdownAccessories.set(alarm.id, countdownAccessory);
     return accessory.UUID;
@@ -129,16 +129,17 @@ export class PersistentAlarmPlatform implements DynamicPlatformPlugin {
 
   private registerOrRestoreAccessory(alarm: NormalizedAlarmConfig, role: AccessoryRole, displayName: string): PlatformAccessory {
     const uuid = this.accessoryUuid(alarm.id, role);
+    const sanitizedDisplayName = sanitizeHomeKitName(displayName);
     const existingAccessory = this.accessories.get(uuid);
     if (existingAccessory) {
-      existingAccessory.displayName = displayName;
+      existingAccessory.displayName = sanitizedDisplayName;
       existingAccessory.context.alarmId = alarm.id;
       existingAccessory.context.role = role;
       this.api.updatePlatformAccessories([existingAccessory]);
       return existingAccessory;
     }
 
-    const accessory = new this.api.platformAccessory(displayName, uuid);
+    const accessory = new this.api.platformAccessory(sanitizedDisplayName, uuid);
     accessory.context.alarmId = alarm.id;
     accessory.context.role = role;
     this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);

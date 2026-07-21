@@ -1,8 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.1.0
 
+- Add optional `accessoryNames` overrides for trigger, motion, reset, and countdown HomeKit accessory display names.
 - Add optional `homekitExposure.remainingTime` support for a status-only countdown accessory that exposes HomeKit `Remaining Duration`.
+- Promote the package from alpha prereleases to the first stable release.
 
 ## 0.1.0-alpha.4
 

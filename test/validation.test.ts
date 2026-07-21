@@ -20,7 +20,55 @@ describe('configuration validation', () => {
       repeatMode: 'count',
       repeatCount: 3,
       homekitExposure: { cancelSwitch: true, remainingTime: false },
+      accessoryNames: {
+        trigger: 'Washing Machine Trigger',
+        motion: 'Washing Machine Motion',
+        reset: 'Washing Machine Reset',
+        countdown: 'Washing Machine Countdown',
+      },
     });
+  });
+
+  it('normalizes optional accessory names', () => {
+    const config = normalizeConfig({
+      platform: 'PersistentAlarm',
+      alarms: [{
+        id: 'timer',
+        name: 'Timer',
+        delay: { minutes: 30 },
+        motionDurationSeconds: 10,
+        repeatMode: 'once',
+        accessoryNames: {
+          trigger: 'Start Laundry Reminder',
+          motion: 'Laundry Reminder Due',
+          reset: 'Cancel Laundry Reminder',
+          countdown: 'Laundry Time Remaining',
+        },
+      }],
+    });
+
+    expect(config.alarms[0]?.accessoryNames).toEqual({
+      trigger: 'Start Laundry Reminder',
+      motion: 'Laundry Reminder Due',
+      reset: 'Cancel Laundry Reminder',
+      countdown: 'Laundry Time Remaining',
+    });
+  });
+
+  it('rejects invalid accessory names', () => {
+    expect(() => normalizeConfig({
+      platform: 'PersistentAlarm',
+      alarms: [{
+        id: 'bad-names',
+        name: 'Bad Names',
+        delay: { minutes: 1 },
+        motionDurationSeconds: 10,
+        repeatMode: 'once',
+        accessoryNames: {
+          trigger: '',
+        },
+      }],
+    })).toThrow(/accessoryNames.trigger must be a non-empty string/u);
   });
 
   it('normalizes optional remaining time exposure', () => {
