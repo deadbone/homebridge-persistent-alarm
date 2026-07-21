@@ -6,6 +6,17 @@ on:
       - 'v*.*.*'
   pull_request:
     types: [opened, synchronize, reopened]
+    paths:
+      - 'assets/**'
+      - 'config.schema.json'
+      - 'package-lock.json'
+      - 'package.json'
+      - 'src/**'
+      - 'test/**'
+      - 'tools/**'
+      - 'tsconfig.json'
+      - 'tsconfig.test.json'
+      - 'vitest.config.ts'
 
 permissions:
   contents: write
