@@ -1,0 +1,8 @@
+src/
+test/
+wiki/
+.github/
+SPECIFICATION.md
+tsconfig*.json
+vitest.config.ts
+eslint.config.js
