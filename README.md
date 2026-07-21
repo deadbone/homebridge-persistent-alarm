@@ -185,7 +185,7 @@ npm run verify:pack
 
 ## Publishing
 
-Stable publishing is tag-based and uses npm Trusted Publishing through GitHub Actions. Do not publish stable releases without an explicit release decision.
+Stable publishing is tag-based and uses npm Trusted Publishing through GitHub Actions. The first stable package version is `0.1.0`. Do not publish stable releases without an explicit release decision.
 
 ## Beta versions
 
@@ -355,7 +355,7 @@ npm run verify:pack
 
 ## Publication
 
-La publication stable se fait par tag et npm Trusted Publishing. Ne publiez pas de version stable sans decision explicite.
+La publication stable se fait par tag et npm Trusted Publishing. La premiere version stable du package est `0.1.0`. Ne publiez pas de version stable sans decision explicite.
 
 ## Versions beta
 
