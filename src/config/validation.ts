@@ -69,6 +69,7 @@ function normalizeAlarms(value: unknown, issues: string[]): readonly NormalizedA
       repeatCount: repeatMode === 'once' ? 1 : repeatCount,
       homekitExposure: {
         cancelSwitch: optionalBoolean(alarm.homekitExposure?.cancelSwitch, DEFAULTS.cancelSwitch, `${label}.homekitExposure.cancelSwitch`, issues),
+        remainingTime: optionalBoolean(alarm.homekitExposure?.remainingTime, DEFAULTS.remainingTime, `${label}.homekitExposure.remainingTime`, issues),
       },
     };
   });

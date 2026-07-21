@@ -10,6 +10,7 @@ export interface AlarmControllerCallbacks {
   readonly updateMotion: (detected: boolean) => void;
   readonly updateTriggerSwitch?: (on: boolean) => void;
   readonly updateCancelSwitch?: (on: boolean) => void;
+  readonly updateCountdown?: (triggerAt: string | null, setDurationSeconds: number | null) => void;
 }
 
 export class AlarmController {
@@ -34,6 +35,7 @@ export class AlarmController {
     this.state = this.store.getAlarm(this.config.id);
     this.callbacks.updateTriggerSwitch?.(false);
     this.callbacks.updateCancelSwitch?.(false);
+    this.callbacks.updateCountdown?.(this.state.triggerAt, this.state.scheduleDelaySeconds);
 
     const now = this.clock.now();
     if (this.state.sensorActiveUntil && Date.parse(this.state.sensorActiveUntil) > now.getTime()) {
@@ -95,6 +97,7 @@ export class AlarmController {
     };
     await this.persist();
     this.triggerScheduler.schedule(triggerAt);
+    this.callbacks.updateCountdown?.(this.state.triggerAt, this.state.scheduleDelaySeconds);
     this.callbacks.updateTriggerSwitch?.(true);
     this.triggerResetTimer = setTimeout(() => this.callbacks.updateTriggerSwitch?.(false), 500);
     this.logger.info('[%s] Scheduled alarm for %s', this.config.id, triggerAt.toISOString());
@@ -113,6 +116,7 @@ export class AlarmController {
     this.state = emptyAlarmState();
     await this.persist();
     this.callbacks.updateMotion(false);
+    this.callbacks.updateCountdown?.(this.state.triggerAt, this.state.scheduleDelaySeconds);
     this.callbacks.updateCancelSwitch?.(true);
     this.cancelResetTimer = setTimeout(() => this.callbacks.updateCancelSwitch?.(false), 500);
     this.logger.info('[%s] Alarm cancelled and reset', this.config.id);
@@ -146,6 +150,7 @@ export class AlarmController {
     if (!emitted) {
       this.state = { ...this.state, triggerAt: null };
       await this.persist();
+      this.callbacks.updateCountdown?.(this.state.triggerAt, this.state.scheduleDelaySeconds);
       return;
     }
 
@@ -157,6 +162,7 @@ export class AlarmController {
       completedTriggers: completedAfterDue,
     };
     await this.persist();
+    this.callbacks.updateCountdown?.(this.state.triggerAt, this.state.scheduleDelaySeconds);
 
     if (hasNext) {
       this.triggerScheduler.schedule(new Date(theoreticalMs));

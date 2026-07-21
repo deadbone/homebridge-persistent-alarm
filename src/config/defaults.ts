@@ -8,6 +8,7 @@ export const DEFAULTS = {
   repeatMode: 'once',
   repeatCount: 1,
   cancelSwitch: true,
+  remainingTime: false,
 } as const;
 
 export const EMPTY_CONFIG: NormalizedPlatformConfig = {

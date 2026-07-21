@@ -1,5 +1,6 @@
 import type { API, DynamicPlatformPlugin, Logging, PlatformAccessory, PlatformConfig } from 'homebridge';
 import { CancelResetSwitchAccessory } from './accessories/cancel-reset-switch.js';
+import { CountdownValveAccessory } from './accessories/countdown-valve.js';
 import { MotionSensorAccessory } from './accessories/motion-sensor.js';
 import { TriggerSwitchAccessory } from './accessories/trigger-switch.js';
 import { ConfigValidationError, normalizeConfig } from './config/validation.js';
@@ -11,7 +12,7 @@ import { ACCESSORY_UUID_NAMESPACE, PLATFORM_NAME, PLUGIN_NAME } from './settings
 import { PluginLogger } from './utils/logger.js';
 import { sanitizeHomeKitName } from './utils/security.js';
 
-type AccessoryRole = 'trigger-switch' | 'motion-sensor' | 'cancel-reset-switch';
+type AccessoryRole = 'trigger-switch' | 'motion-sensor' | 'cancel-reset-switch' | 'countdown-valve';
 
 interface HomebridgeUserPaths {
   readonly persistPath?: () => string;
@@ -28,6 +29,7 @@ export class PersistentAlarmPlatform implements DynamicPlatformPlugin {
   private readonly triggerAccessories = new Map<string, TriggerSwitchAccessory>();
   private readonly cancelAccessories = new Map<string, CancelResetSwitchAccessory>();
   private readonly motionAccessories = new Map<string, MotionSensorAccessory>();
+  private readonly countdownAccessories = new Map<string, CountdownValveAccessory>();
 
   public constructor(
     public readonly log: Logging,
@@ -53,6 +55,9 @@ export class PersistentAlarmPlatform implements DynamicPlatformPlugin {
       for (const controller of this.controllers.values()) {
         controller.stop();
       }
+      for (const accessory of this.countdownAccessories.values()) {
+        accessory.stop();
+      }
     });
   }
 
@@ -70,6 +75,7 @@ export class PersistentAlarmPlatform implements DynamicPlatformPlugin {
         updateMotion: (detected) => this.motionAccessories.get(alarm.id)?.update(detected),
         updateTriggerSwitch: (on) => this.triggerAccessories.get(alarm.id)?.update(on),
         updateCancelSwitch: (on) => this.cancelAccessories.get(alarm.id)?.update(on),
+        updateCountdown: (triggerAt, setDurationSeconds) => this.countdownAccessories.get(alarm.id)?.update(triggerAt, setDurationSeconds),
       });
       this.controllers.set(alarm.id, controller);
 
@@ -77,6 +83,9 @@ export class PersistentAlarmPlatform implements DynamicPlatformPlugin {
       expectedUUIDs.add(this.registerMotionSensor(alarm));
       if (alarm.homekitExposure.cancelSwitch) {
         expectedUUIDs.add(this.registerCancelSwitch(alarm, controller));
+      }
+      if (alarm.homekitExposure.remainingTime) {
+        expectedUUIDs.add(this.registerCountdownValve(alarm));
       }
       await controller.restore();
     }
@@ -108,6 +117,13 @@ export class PersistentAlarmPlatform implements DynamicPlatformPlugin {
     const accessory = this.registerOrRestoreAccessory(alarm, 'cancel-reset-switch', `${sanitizeHomeKitName(alarm.name)} Reset`);
     const switchAccessory = new CancelResetSwitchAccessory(this, accessory, controller);
     this.cancelAccessories.set(alarm.id, switchAccessory);
+    return accessory.UUID;
+  }
+
+  private registerCountdownValve(alarm: NormalizedAlarmConfig): string {
+    const accessory = this.registerOrRestoreAccessory(alarm, 'countdown-valve', `${sanitizeHomeKitName(alarm.name)} Countdown`);
+    const countdownAccessory = new CountdownValveAccessory(this, accessory);
+    this.countdownAccessories.set(alarm.id, countdownAccessory);
     return accessory.UUID;
   }
 

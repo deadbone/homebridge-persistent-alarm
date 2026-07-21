@@ -1,6 +1,6 @@
 # HomeKit accessories
 
-Each alarm has a trigger switch, motion sensor, and optional reset switch. The trigger switch is not an armed-state indicator.
+Each alarm has a trigger switch, motion sensor, optional reset switch, and optional countdown accessory. The trigger switch is not an armed-state indicator.
 
 ## Trigger switch
 
@@ -31,6 +31,12 @@ If another trigger happens while Motion is already active, the plugin forces an 
 
 The reset switch cancels the stored schedule, stops future repeats, clears active motion, and resets counters. It is exposed by default and can be hidden with `homekitExposure.cancelSwitch`.
 
+## Countdown accessory
+
+The countdown accessory exposes the active schedule's remaining time through HomeKit `Remaining Duration`. It uses a valve service for HomeKit compatibility and can be shown with `homekitExposure.remainingTime`.
+
+It is status-only. Changing Active or Set Duration from a HomeKit app does not start, cancel, or reschedule the alarm.
+
 ## Example accessory names
 
 For an alarm named `Washing Machine Reminder`, HomeKit accessories are named:
@@ -38,10 +44,11 @@ For an alarm named `Washing Machine Reminder`, HomeKit accessories are named:
 - `Washing Machine Reminder Trigger`
 - `Washing Machine Reminder Motion`
 - `Washing Machine Reminder Reset`
+- `Washing Machine Reminder Countdown`
 
 ## Francais
 
-Chaque alarme a un switch de declenchement, un detecteur de mouvement et un switch reset optionnel. Le switch de declenchement n'est pas un indicateur d'armement.
+Chaque alarme a un switch de declenchement, un detecteur de mouvement, un switch reset optionnel et un accessoire optionnel de compte a rebours. Le switch de declenchement n'est pas un indicateur d'armement.
 
 ## Switch de declenchement
 
@@ -72,6 +79,12 @@ Si un nouveau declenchement arrive alors que Motion est deja actif, le plugin fo
 
 Le switch reset annule la programmation stockee, arrete les repetitions futures, efface le mouvement actif et remet les compteurs a zero. Il est expose par defaut et peut etre masque avec `homekitExposure.cancelSwitch`.
 
+## Accessoire de compte a rebours
+
+L'accessoire de compte a rebours expose le temps restant de la programmation active avec `Remaining Duration` HomeKit. Il utilise un service de type valve pour la compatibilite HomeKit et peut etre affiche avec `homekitExposure.remainingTime`.
+
+Il est informatif uniquement. Modifier Active ou Set Duration depuis une app HomeKit ne demarre pas, n'annule pas et ne reprogramme pas l'alarme.
+
 ## Exemple de noms d'accessoires
 
 Pour une alarme nommee `Rappel Machine a laver`, HomeKit affichera:
@@ -79,3 +92,4 @@ Pour une alarme nommee `Rappel Machine a laver`, HomeKit affichera:
 - `Rappel Machine a laver Trigger`
 - `Rappel Machine a laver Motion`
 - `Rappel Machine a laver Reset`
+- `Rappel Machine a laver Countdown`
