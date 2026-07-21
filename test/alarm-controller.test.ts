@@ -32,6 +32,7 @@ describe('AlarmController', () => {
 
     expect(harness.controller.getState().triggerAt).toBe('2026-07-21T08:01:00.000Z');
     expect(harness.trigger).toHaveBeenCalledWith(true);
+    expect(harness.countdown).toHaveBeenLastCalledWith('2026-07-21T08:01:00.000Z', 60);
 
     await vi.advanceTimersByTimeAsync(500);
     expect(harness.trigger).toHaveBeenLastCalledWith(false);
@@ -117,6 +118,7 @@ describe('AlarmController', () => {
     });
     expect(harness.motion).toHaveBeenLastCalledWith(false);
     expect(harness.cancel).toHaveBeenCalledWith(true);
+    expect(harness.countdown).toHaveBeenLastCalledWith(null, null);
   });
 
   it('restores future schedules from persistence', async () => {
@@ -128,6 +130,7 @@ describe('AlarmController', () => {
 
     expect(second.controller.getState().triggerAt).toBe('2026-07-21T08:01:00.000Z');
     expect(second.trigger).toHaveBeenCalledWith(false);
+    expect(second.countdown).toHaveBeenCalledWith('2026-07-21T08:01:00.000Z', 60);
   });
 
   it('emits one immediate event for missed triggers and advances repeat state', async () => {
@@ -141,6 +144,7 @@ describe('AlarmController', () => {
     expect(second.motion).toHaveBeenLastCalledWith(true);
     expect(second.controller.getState().completedTriggers).toBe(2);
     expect(second.controller.getState().triggerAt).toBe('2026-07-21T08:03:00.000Z');
+    expect(second.countdown).toHaveBeenLastCalledWith('2026-07-21T08:03:00.000Z', 60);
   });
 
   async function createHarness(overrides = {}, existingDirectory?: string) {
@@ -156,13 +160,15 @@ describe('AlarmController', () => {
     const motion = vi.fn();
     const trigger = vi.fn();
     const cancel = vi.fn();
+    const countdown = vi.fn();
     const callbacks: AlarmControllerCallbacks = {
       updateMotion: motion,
       updateTriggerSwitch: trigger,
       updateCancelSwitch: cancel,
+      updateCountdown: countdown,
     };
     const controller = new AlarmController({ ...sampleAlarm, ...overrides }, store, clock, logger, callbacks);
     controllers.push(controller);
-    return { directory, store, clock, controller, motion, trigger, cancel };
+    return { directory, store, clock, controller, motion, trigger, cancel, countdown };
   }
 });

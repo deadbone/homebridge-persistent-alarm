@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Add optional `homekitExposure.remainingTime` support for a status-only countdown accessory that exposes HomeKit `Remaining Duration`.
+
 ## 0.1.0-alpha.4
 
 - Limit `delay.hours` to 168 hours in both validation and Homebridge UI schema.

@@ -77,7 +77,8 @@ The reset logic still exists internally, but the HomeKit reset switch is not exp
   "motionDurationSeconds": 10,
   "repeatMode": "once",
   "homekitExposure": {
-    "cancelSwitch": false
+    "cancelSwitch": false,
+    "remainingTime": false
   }
 }
 ```
@@ -91,6 +92,7 @@ The reset logic still exists internally, but the HomeKit reset switch is not exp
 - `repeatMode`: `once`, `count`, or `infinite`.
 - `repeatCount`: total number of triggers when `repeatMode` is `count`.
 - `homekitExposure.cancelSwitch`: show or hide the optional reset switch.
+- `homekitExposure.remainingTime`: show or hide the optional countdown accessory with HomeKit `Remaining Duration`.
 
 ## Francais
 
@@ -171,7 +173,8 @@ La logique reset existe toujours dans le plugin, mais le switch reset n'est pas 
   "motionDurationSeconds": 10,
   "repeatMode": "once",
   "homekitExposure": {
-    "cancelSwitch": false
+    "cancelSwitch": false,
+    "remainingTime": false
   }
 }
 ```
@@ -185,3 +188,4 @@ La logique reset existe toujours dans le plugin, mais le switch reset n'est pas 
 - `repeatMode`: `once`, `count` ou `infinite`.
 - `repeatCount`: nombre total de declenchements quand `repeatMode` vaut `count`.
 - `homekitExposure.cancelSwitch`: affiche ou masque le switch reset optionnel.
+- `homekitExposure.remainingTime`: affiche ou masque l'accessoire optionnel de compte a rebours avec `Remaining Duration` HomeKit.

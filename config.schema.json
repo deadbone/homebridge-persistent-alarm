@@ -104,6 +104,12 @@
                   "title": "Expose Cancel and Reset Switch",
                   "type": "boolean",
                   "default": true
+                },
+                "remainingTime": {
+                  "title": "Expose Remaining Time Accessory",
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Expose a HomeKit valve-style countdown accessory with Remaining Duration for the active schedule."
                 }
               }
             }

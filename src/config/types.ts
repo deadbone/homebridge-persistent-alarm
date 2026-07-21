@@ -2,6 +2,7 @@ export type RepeatMode = 'once' | 'count' | 'infinite';
 
 export interface HomeKitExposureConfig {
   readonly cancelSwitch?: boolean;
+  readonly remainingTime?: boolean;
 }
 
 export interface DurationConfig {
@@ -29,6 +30,7 @@ export interface PersistentAlarmPlatformConfig {
 
 export interface NormalizedHomeKitExposureConfig {
   readonly cancelSwitch: boolean;
+  readonly remainingTime: boolean;
 }
 
 export interface NormalizedAlarmConfig {

@@ -19,7 +19,29 @@ describe('configuration validation', () => {
       id: 'washing-machine',
       repeatMode: 'count',
       repeatCount: 3,
-      homekitExposure: { cancelSwitch: true },
+      homekitExposure: { cancelSwitch: true, remainingTime: false },
+    });
+  });
+
+  it('normalizes optional remaining time exposure', () => {
+    const config = normalizeConfig({
+      platform: 'PersistentAlarm',
+      alarms: [{
+        id: 'timer',
+        name: 'Timer',
+        delay: { minutes: 30 },
+        motionDurationSeconds: 10,
+        repeatMode: 'once',
+        homekitExposure: {
+          cancelSwitch: false,
+          remainingTime: true,
+        },
+      }],
+    });
+
+    expect(config.alarms[0]?.homekitExposure).toEqual({
+      cancelSwitch: false,
+      remainingTime: true,
     });
   });
 

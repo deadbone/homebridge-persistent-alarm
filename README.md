@@ -15,6 +15,7 @@ Homebridge Persistent Alarm creates HomeKit alarms that are scheduled from an ab
 - Repeat modes: once, fixed count, and until cancelled.
 - Stable cadence based on the previous theoretical trigger time.
 - Mandatory trigger switch and motion sensor, optional cancel/reset switch.
+- Optional countdown accessory for the active schedule's remaining duration.
 - Stable UUIDs based on the alarm ID and accessory role.
 - No telemetry.
 
@@ -81,7 +82,8 @@ Duration fields are split for easier Homebridge UI entry:
       "repeatMode": "count",
       "repeatCount": 3,
       "homekitExposure": {
-        "cancelSwitch": true
+        "cancelSwitch": true,
+        "remainingTime": false
       }
     }
   ]
@@ -91,6 +93,8 @@ Duration fields are split for easier Homebridge UI entry:
 ## HomeKit accessories
 
 For each alarm, the plugin exposes a trigger switch, a motion sensor, and by default a cancel/reset switch. The trigger switch is a momentary button. It is not an armed-state indicator.
+
+Set `homekitExposure.remainingTime` to `true` to expose an additional countdown accessory. It uses a HomeKit valve service so apps that show `Remaining Duration`, such as Eve, can display the seconds remaining before the next scheduled trigger. The accessory is status-only for this plugin: changing its Active or Set Duration controls from a HomeKit app does not start, cancel, or reschedule the alarm.
 
 ## Nicolas baseline behavior
 
@@ -120,7 +124,7 @@ The cancel/reset switch cancels the next trigger, stops repetitions, clears acti
 
 ## HomeKit exposure
 
-`homekitExposure.cancelSwitch` controls whether the cancel/reset switch is visible. The trigger switch and motion sensor cannot be hidden.
+`homekitExposure.cancelSwitch` controls whether the cancel/reset switch is visible. `homekitExposure.remainingTime` controls whether the countdown accessory is visible. The trigger switch and motion sensor cannot be hidden.
 
 ## UUID stability and renaming
 
@@ -258,6 +262,8 @@ Voir l'exemple JSON de la section anglaise; les noms peuvent etre adaptes.
 
 Chaque alarme expose un interrupteur de declenchement, un detecteur de mouvement et, par defaut, un interrupteur d'annulation/reinitialisation. L'interrupteur de declenchement est un bouton momentane. Ce n'est pas un indicateur d'armement.
 
+Reglez `homekitExposure.remainingTime` sur `true` pour exposer un accessoire de compte a rebours supplementaire. Il utilise un service HomeKit de type valve afin que les apps qui affichent `Remaining Duration`, comme Eve, puissent afficher les secondes restantes avant le prochain declenchement programme. Cet accessoire est informatif pour ce plugin: modifier ses controles Active ou Set Duration depuis une app HomeKit ne demarre pas, n'annule pas et ne reprogramme pas l'alarme.
+
 ## Comportement de base demande par Nicolas
 
 Avec un delai de 4 heures, si l'utilisateur active l'interrupteur a 08:32, le plugin stocke une date absolue pour 12:32. Le retour de l'interrupteur a OFF, automatique ou manuel, n'annule pas l'alarme. Seul l'interrupteur d'annulation/reinitialisation l'annule.
@@ -286,7 +292,7 @@ Le switch reset annule le prochain declenchement, stoppe les repetitions, remet 
 
 ## Exposition HomeKit
 
-`homekitExposure.cancelSwitch` permet de masquer le switch reset. L'interrupteur de declenchement et le detecteur de mouvement ne peuvent pas etre masques.
+`homekitExposure.cancelSwitch` permet de masquer le switch reset. `homekitExposure.remainingTime` permet de masquer ou afficher l'accessoire de compte a rebours. L'interrupteur de declenchement et le detecteur de mouvement ne peuvent pas etre masques.
 
 ## Stabilite des UUID et renommage
 
