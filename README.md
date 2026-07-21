@@ -84,6 +84,12 @@ Duration fields are split for easier Homebridge UI entry:
       "homekitExposure": {
         "cancelSwitch": true,
         "remainingTime": false
+      },
+      "accessoryNames": {
+        "trigger": "Start Washing Machine Reminder",
+        "motion": "Washing Machine Reminder Due",
+        "reset": "Cancel Washing Machine Reminder",
+        "countdown": "Washing Machine Time Remaining"
       }
     }
   ]
@@ -95,6 +101,8 @@ Duration fields are split for easier Homebridge UI entry:
 For each alarm, the plugin exposes a trigger switch, a motion sensor, and by default a cancel/reset switch. The trigger switch is a momentary button. It is not an armed-state indicator.
 
 Set `homekitExposure.remainingTime` to `true` to expose an additional countdown accessory. It uses a HomeKit valve service so apps that show `Remaining Duration`, such as Eve, can display the seconds remaining before the next scheduled trigger. The accessory is status-only for this plugin: changing its Active or Set Duration controls from a HomeKit app does not start, cancel, or reschedule the alarm.
+
+Use `accessoryNames` to override the generated HomeKit names for individual accessories. Supported fields are `trigger`, `motion`, `reset`, and `countdown`. These are display names only; UUIDs remain based on the stable alarm `id` and accessory role.
 
 ## Nicolas baseline behavior
 
@@ -263,6 +271,8 @@ Voir l'exemple JSON de la section anglaise; les noms peuvent etre adaptes.
 Chaque alarme expose un interrupteur de declenchement, un detecteur de mouvement et, par defaut, un interrupteur d'annulation/reinitialisation. L'interrupteur de declenchement est un bouton momentane. Ce n'est pas un indicateur d'armement.
 
 Reglez `homekitExposure.remainingTime` sur `true` pour exposer un accessoire de compte a rebours supplementaire. Il utilise un service HomeKit de type valve afin que les apps qui affichent `Remaining Duration`, comme Eve, puissent afficher les secondes restantes avant le prochain declenchement programme. Cet accessoire est informatif pour ce plugin: modifier ses controles Active ou Set Duration depuis une app HomeKit ne demarre pas, n'annule pas et ne reprogramme pas l'alarme.
+
+Utilisez `accessoryNames` pour remplacer les noms HomeKit generes pour chaque accessoire. Les champs disponibles sont `trigger`, `motion`, `reset` et `countdown`. Ce sont uniquement des noms d'affichage; les UUID restent bases sur l'`id` stable de l'alarme et le role de l'accessoire.
 
 ## Comportement de base demande par Nicolas
 

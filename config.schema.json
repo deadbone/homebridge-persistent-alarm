@@ -112,6 +112,30 @@
                   "description": "Expose a HomeKit valve-style countdown accessory with Remaining Duration for the active schedule."
                 }
               }
+            },
+            "accessoryNames": {
+              "title": "Accessory Names",
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Optional full HomeKit names for each accessory. When omitted, names are generated from the HomeKit Name.",
+              "properties": {
+                "trigger": {
+                  "title": "Trigger Accessory Name",
+                  "type": "string"
+                },
+                "motion": {
+                  "title": "Motion Accessory Name",
+                  "type": "string"
+                },
+                "reset": {
+                  "title": "Reset Accessory Name",
+                  "type": "string"
+                },
+                "countdown": {
+                  "title": "Countdown Accessory Name",
+                  "type": "string"
+                }
+              }
             }
           }
         }

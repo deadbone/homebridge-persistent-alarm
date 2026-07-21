@@ -46,6 +46,8 @@ For an alarm named `Washing Machine Reminder`, HomeKit accessories are named:
 - `Washing Machine Reminder Reset`
 - `Washing Machine Reminder Countdown`
 
+Use `accessoryNames.trigger`, `accessoryNames.motion`, `accessoryNames.reset`, and `accessoryNames.countdown` to override these display names. Name changes do not recreate accessories because UUIDs remain based on alarm ID and role.
+
 ## Francais
 
 Chaque alarme a un switch de declenchement, un detecteur de mouvement, un switch reset optionnel et un accessoire optionnel de compte a rebours. Le switch de declenchement n'est pas un indicateur d'armement.
@@ -93,3 +95,5 @@ Pour une alarme nommee `Rappel Machine a laver`, HomeKit affichera:
 - `Rappel Machine a laver Motion`
 - `Rappel Machine a laver Reset`
 - `Rappel Machine a laver Countdown`
+
+Utilisez `accessoryNames.trigger`, `accessoryNames.motion`, `accessoryNames.reset` et `accessoryNames.countdown` pour remplacer ces noms d'affichage. Les changements de nom ne recreent pas les accessoires, car les UUID restent bases sur l'ID d'alarme et le role.
