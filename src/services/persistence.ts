@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import type { AlarmPersistentState, PersistentStateFile } from './state.js';
@@ -10,6 +11,7 @@ const REPEAT_MODES = new Set<RepeatMode>(['once', 'count', 'infinite']);
 
 export class PersistentAlarmStore {
   private state: PersistentStateFile = { schemaVersion: 1, alarms: {} };
+  private saveQueue: Promise<void> = Promise.resolve();
 
   public constructor(
     private readonly storageDirectory: string,
@@ -59,8 +61,14 @@ export class PersistentAlarmStore {
   }
 
   private async save(): Promise<void> {
+    const queuedSave = this.saveQueue.then(() => this.saveNow());
+    this.saveQueue = queuedSave.catch(() => undefined);
+    await queuedSave;
+  }
+
+  private async saveNow(): Promise<void> {
     await mkdir(dirname(this.filePath), { recursive: true });
-    const temporaryFile = `${this.filePath}.tmp`;
+    const temporaryFile = `${this.filePath}.${process.pid}.${randomUUID()}.tmp`;
     await writeFile(temporaryFile, `${JSON.stringify(this.state, null, 2)}\n`, 'utf8');
     await rename(temporaryFile, this.filePath);
   }
