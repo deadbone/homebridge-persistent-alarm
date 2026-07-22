@@ -25,10 +25,19 @@ export class CancelResetSwitchAccessory {
   }
 
   private async handleSet(value: CharacteristicValue): Promise<void> {
-    if (value === true) {
-      await this.controller.cancel();
-      return;
+    try {
+      if (value === true) {
+        await this.controller.cancel();
+        return;
+      }
+      this.update(false);
+    } catch (error) {
+      this.platform.logger.error('[%s] Cancel/reset switch update failed: %s', this.controller.config.id, errorMessage(error));
+      this.update(false);
     }
-    this.update(false);
   }
+}
+
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
 }

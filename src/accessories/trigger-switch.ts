@@ -25,10 +25,19 @@ export class TriggerSwitchAccessory {
   }
 
   private async handleSet(value: CharacteristicValue): Promise<void> {
-    if (value === true) {
-      await this.controller.trigger();
-      return;
+    try {
+      if (value === true) {
+        await this.controller.trigger();
+        return;
+      }
+      await this.controller.triggerSwitchOff();
+    } catch (error) {
+      this.platform.logger.error('[%s] Trigger switch update failed: %s', this.controller.config.id, errorMessage(error));
+      this.update(false);
     }
-    await this.controller.triggerSwitchOff();
   }
+}
+
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
 }
