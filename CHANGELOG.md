@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- Harden Homebridge verification readiness by catching and logging asynchronous startup and scheduler errors.
+- Remove personal wording from README behavior headings.
+- Add scheduler coverage for async due-handler error reporting.
+
 ## 0.1.0
 
 - Add optional `accessoryNames` overrides for trigger, motion, reset, and countdown HomeKit accessory display names.
