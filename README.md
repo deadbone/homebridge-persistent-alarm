@@ -104,7 +104,7 @@ Set `homekitExposure.remainingTime` to `true` to expose an additional countdown 
 
 Use `accessoryNames` to override the generated HomeKit names for individual accessories. Supported fields are `trigger`, `motion`, `reset`, and `countdown`. These are display names only; UUIDs remain based on the stable alarm `id` and accessory role.
 
-## Nicolas baseline behavior
+## Baseline behavior
 
 If the delay is 4 hours and the user turns the trigger switch ON at 08:32, the plugin stores an absolute trigger date for 12:32. The trigger switch returning OFF, either automatically or manually, does not cancel the alarm. Only the cancel/reset switch cancels the alarm.
 
@@ -274,7 +274,7 @@ Reglez `homekitExposure.remainingTime` sur `true` pour exposer un accessoire de 
 
 Utilisez `accessoryNames` pour remplacer les noms HomeKit generes pour chaque accessoire. Les champs disponibles sont `trigger`, `motion`, `reset` et `countdown`. Ce sont uniquement des noms d'affichage; les UUID restent bases sur l'`id` stable de l'alarme et le role de l'accessoire.
 
-## Comportement de base demande par Nicolas
+## Comportement de base demande
 
 Avec un delai de 4 heures, si l'utilisateur active l'interrupteur a 08:32, le plugin stocke une date absolue pour 12:32. Le retour de l'interrupteur a OFF, automatique ou manuel, n'annule pas l'alarme. Seul l'interrupteur d'annulation/reinitialisation l'annule.
 

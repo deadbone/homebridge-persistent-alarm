@@ -9,6 +9,7 @@ export class AlarmScheduler {
     private readonly clock: Clock,
     private readonly onDue: () => void | Promise<void>,
     private readonly maxWaitMs: number = NODE_TIMEOUT_LIMIT_MS,
+    private readonly onError: (error: unknown) => void = () => undefined,
   ) {}
 
   public schedule(target: Date): void {
@@ -29,7 +30,11 @@ export class AlarmScheduler {
     this.timer = setTimeout(async () => {
       this.timer = undefined;
       if (this.clock.now().getTime() >= target.getTime()) {
-        await this.onDue();
+        try {
+          await this.onDue();
+        } catch (error) {
+          this.onError(error);
+        }
         return;
       }
       this.scheduleNext(target);

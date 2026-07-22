@@ -27,8 +27,8 @@ export class AlarmController {
     private readonly logger: PluginLogger,
     private readonly callbacks: AlarmControllerCallbacks,
   ) {
-    this.triggerScheduler = new AlarmScheduler(clock, () => this.checkTrigger());
-    this.sensorScheduler = new AlarmScheduler(clock, () => this.checkSensor());
+    this.triggerScheduler = new AlarmScheduler(clock, () => this.checkTrigger(), undefined, (error) => this.logSchedulerError('trigger', error));
+    this.sensorScheduler = new AlarmScheduler(clock, () => this.checkSensor(), undefined, (error) => this.logSchedulerError('sensor', error));
   }
 
   public async restore(): Promise<void> {
@@ -193,6 +193,10 @@ export class AlarmController {
 
   private async persist(): Promise<void> {
     await this.store.setAlarm(this.config.id, this.state);
+  }
+
+  private logSchedulerError(name: string, error: unknown): void {
+    this.logger.error('[%s] %s scheduler failed: %s', this.config.id, name, error instanceof Error ? error.message : String(error));
   }
 
   private clearTriggerResetTimer(): void {

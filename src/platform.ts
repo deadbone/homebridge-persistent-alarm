@@ -49,7 +49,9 @@ export class PersistentAlarmPlatform implements DynamicPlatformPlugin {
     this.store = new PersistentAlarmStore(resolvePersistenceDirectory(api), this.logger);
 
     this.api.on('didFinishLaunching', () => {
-      void this.registerConfiguredAccessories();
+      void this.registerConfiguredAccessories().catch((error: unknown) => {
+        this.logger.error('Persistent Alarm failed to register configured accessories: %s', errorMessage(error));
+      });
     });
     this.api.on('shutdown', () => {
       for (const controller of this.controllers.values()) {
@@ -155,4 +157,8 @@ export class PersistentAlarmPlatform implements DynamicPlatformPlugin {
 function resolvePersistenceDirectory(api: API): string {
   const user = api.user as HomebridgeUserPaths | undefined;
   return user?.persistPath?.() ?? user?.storagePath?.() ?? process.cwd();
+}
+
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
 }
