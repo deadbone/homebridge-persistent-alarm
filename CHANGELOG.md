@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2
+
+- Serialize persistent state writes and use unique temporary files to avoid overlapping save collisions.
+- Catch and log HomeKit trigger/reset switch update failures while restoring switch state to OFF.
+- Add persistence coverage for concurrent saves.
+
 ## 0.1.1
 
 - Harden Homebridge verification readiness by catching and logging asynchronous startup and scheduler errors.
