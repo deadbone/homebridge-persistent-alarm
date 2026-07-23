@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/plugin-icon.png" alt="Persistent Alarm icon" width="128" height="128">
+  <img src="assets/plugin-icon.png" alt="Persistent Alarm icon" width="256" height="256">
 </p>
 
 # homebridge-persistent-alarm
