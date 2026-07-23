@@ -2,11 +2,25 @@
   <img src="assets/plugin-icon.png" alt="Persistent Alarm icon" width="128" height="128">
 </p>
 
-# Homebridge Persistent Alarm
+# homebridge-persistent-alarm
+
+[![verified-by-homebridge](https://img.shields.io/badge/homebridge-verified-blueviolet?color=%23491F59&style=for-the-badge&logoColor=%23FFFFFF&logo=homebridge)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
+
+## English
 
 ## Overview
 
 Homebridge Persistent Alarm creates HomeKit alarms that are scheduled from an absolute persisted date. A trigger switch starts or replaces a schedule, a motion sensor fires when the schedule is reached, and an optional cancel/reset switch is the only HomeKit control that cancels it.
+
+## Documentation
+
+Detailed documentation is available in the repository wiki:
+
+- [Installation](wiki/Installation.md)
+- [Configuration](wiki/Configuration.md)
+- [HomeKit accessories](wiki/HomeKit-accessories.md)
+- [Automation examples](wiki/Automation-examples.md)
+- [Troubleshooting](wiki/Troubleshooting.md)
 
 ## Features
 
@@ -199,15 +213,25 @@ npm install -g homebridge-persistent-alarm@beta
 
 The UUID namespace is stable so a future documented migration to `@homebridge-plugins/homebridge-persistent-alarm` can preserve HomeKit accessories.
 
-## Future Homebridge verification
+## Homebridge verification
 
-This plugin does not claim verified Homebridge status. Add verified badges only after official verification is granted.
+This plugin is Verified by Homebridge. Keep package metadata, Homebridge UI schema, documentation, and release notes current for future releases.
 
-# Homebridge Persistent Alarm - Francais
+# Francais
 
 ## Presentation
 
 Homebridge Persistent Alarm cree des alarmes HomeKit programmees avec une date absolue persistante. Un interrupteur declenche ou remplace une programmation, un detecteur de mouvement se declenche a l'heure prevue, et l'interrupteur optionnel d'annulation/reinitialisation est le seul controle HomeKit qui annule l'alarme.
+
+## Documentation
+
+La documentation detaillee est disponible dans le wiki du depot :
+
+- [Installation](wiki/Installation.md)
+- [Configuration](wiki/Configuration.md)
+- [Accessoires HomeKit](wiki/HomeKit-accessories.md)
+- [Exemples d'automatisations](wiki/Automation-examples.md)
+- [Depannage](wiki/Troubleshooting.md)
 
 ## Fonctionnalites
 
@@ -365,6 +389,6 @@ Les pull requests du meme depot peuvent publier des betas sous le dist-tag `beta
 
 Le namespace UUID est stable pour permettre une future migration documentee vers `@homebridge-plugins/homebridge-persistent-alarm`.
 
-## Future verification Homebridge
+## Verification Homebridge
 
-Ce plugin ne revendique pas le statut verifie Homebridge tant qu'il n'a pas ete accorde officiellement.
+Ce plugin est verifie Homebridge. Gardez les metadonnees du package, le schema Homebridge UI, la documentation et les notes de release a jour pour les prochaines versions.
