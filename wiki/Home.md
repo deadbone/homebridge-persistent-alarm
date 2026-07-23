@@ -37,6 +37,10 @@ The current npm package is `homebridge-persistent-alarm`.
 
 If the Homebridge team later accepts the plugin into the scoped plugin program, the scoped package would be `@homebridge-plugins/homebridge-persistent-alarm`. The plugin keeps a stable HomeKit accessory UUID namespace so this future migration can preserve existing HomeKit accessories when the Homebridge scoped-plugin migration process is followed.
 
+### Support
+
+If this plugin is useful to you, you can support its maintenance through [GitHub Sponsors](https://github.com/sponsors/deadbone) or [Ko-fi](https://ko-fi.com/deadbone111019).
+
 ## Francais
 
 Bienvenue dans le wiki de `homebridge-persistent-alarm`.
@@ -73,3 +77,7 @@ Le plugin se concentre sur des programmations qui survivent aux redemarrages de 
 Le paquet npm actuel est `homebridge-persistent-alarm`.
 
 Si l'equipe Homebridge accepte plus tard le plugin dans le programme des plugins scopes, le paquet scope serait `@homebridge-plugins/homebridge-persistent-alarm`. Le plugin conserve un namespace UUID HomeKit stable afin que cette future migration puisse preserver les accessoires HomeKit existants lorsque la procedure de migration scoped de Homebridge est respectee.
+
+### Soutenir
+
+Si ce plugin vous est utile, vous pouvez soutenir sa maintenance via [GitHub Sponsors](https://github.com/sponsors/deadbone) ou [Ko-fi](https://ko-fi.com/deadbone111019).

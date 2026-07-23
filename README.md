@@ -182,6 +182,13 @@ If an alarm does not fire, check that the alarm ID is unique, `delay` is greater
 
 The plugin stores only alarm IDs, ISO dates, repeat settings, and counters. It does not store secrets, call external services, or collect telemetry.
 
+## Support
+
+If this plugin is useful to you, you can support its maintenance through:
+
+- [GitHub Sponsors](https://github.com/sponsors/deadbone)
+- [Ko-fi](https://ko-fi.com/deadbone111019)
+
 ## Development
 
 ```sh
@@ -361,6 +368,13 @@ Verifiez que l'ID est unique, que `delay` est superieur a zero, et que Homebridg
 ## Securite et confidentialite
 
 Le plugin stocke seulement des IDs d'alarme, dates ISO, parametres de repetition et compteurs. Il n'appelle aucun service externe et ne collecte pas de telemetrie.
+
+## Soutenir
+
+Si ce plugin vous est utile, vous pouvez soutenir sa maintenance via :
+
+- [GitHub Sponsors](https://github.com/sponsors/deadbone)
+- [Ko-fi](https://ko-fi.com/deadbone111019)
 
 ## Developpement
 
