@@ -206,7 +206,11 @@ npm run verify:pack
 
 ## Publishing
 
-Stable publishing is tag-based and uses npm Trusted Publishing through GitHub Actions. The first stable package version is `0.1.0`. Do not publish stable releases without an explicit release decision.
+Stable publishing is tag-based and uses npm Trusted Publishing through GitHub Actions. Do not publish stable releases without an explicit release decision. To check which stable version npm currently serves under `latest`, run:
+
+```sh
+npm view homebridge-persistent-alarm@latest version
+```
 
 ## Beta versions
 
@@ -393,7 +397,11 @@ npm run verify:pack
 
 ## Publication
 
-La publication stable se fait par tag et npm Trusted Publishing. La premiere version stable du package est `0.1.0`. Ne publiez pas de version stable sans decision explicite.
+La publication stable se fait par tag et npm Trusted Publishing via GitHub Actions. Ne publiez pas de version stable sans decision explicite. Pour vérifier quelle version stable npm propose sous `latest`, exécutez cette commande :
+
+```sh
+npm view homebridge-persistent-alarm@latest version
+```
 
 ## Versions beta
 

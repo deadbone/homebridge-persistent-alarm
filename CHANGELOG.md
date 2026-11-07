@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3
+
+- Document how to check the current stable version on npm in the English and French README sections.
+
 ## 0.1.2
 
 - Serialize persistent state writes and use unique temporary files to avoid overlapping save collisions.
