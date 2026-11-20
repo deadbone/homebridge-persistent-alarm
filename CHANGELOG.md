@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4
+
+- Test restoration of legacy schedules, removal of obsolete alarms and saving new schedules after malformed state files.
+
 ## 0.1.3
 
 - Document how to check the current stable version on npm in the English and French README sections.
