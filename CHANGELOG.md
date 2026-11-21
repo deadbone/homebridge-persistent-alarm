@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.5
+
+- Validate the plugin on Node.js 26 with Homebridge 2.5.0.
+
 ## 0.1.4
 
 - Test restoration of legacy schedules, removal of obsolete alarms and saving new schedules after malformed state files.
