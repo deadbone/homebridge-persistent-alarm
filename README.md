@@ -36,7 +36,7 @@ Detailed documentation is available in the repository wiki:
 ## Compatibility
 
 - Homebridge: `^1.6.0 || ^2.0.0`
-- Node.js: `^22.12.0 || ^24.0.0`
+- Node.js: `^22.12.0 || ^24.0.0 || ^26.0.0`. Node.js 26 requires Homebridge 2.5.0 or later.
 
 ## Installation
 
@@ -257,7 +257,7 @@ La documentation detaillee est disponible dans le wiki du depot :
 ## Compatibilite
 
 - Homebridge: `^1.6.0 || ^2.0.0`
-- Node.js: `^22.12.0 || ^24.0.0`
+- Node.js: `^22.12.0 || ^24.0.0 || ^26.0.0`. Node.js 26 requires Homebridge 2.5.0 or later.
 
 ## Installation
 

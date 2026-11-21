@@ -23,7 +23,7 @@ This Homebridge plugin provides persistent absolute-time HomeKit alarms. A trigg
 ### Compatibility
 
 - Homebridge `^1.6.0 || ^2.0.0`.
-- Node.js `^22.12.0 || ^24.0.0`.
+- Node.js `^22.12.0 || ^24.0.0 || ^26.0.0`. Node.js 26 requires Homebridge 2.5.0 or later.
 - Plugin type: dynamic platform.
 - Module format: ESM.
 
@@ -64,7 +64,7 @@ Ce plugin Homebridge fournit des alarmes HomeKit persistantes basees sur des dat
 ### Compatibilite
 
 - Homebridge `^1.6.0 || ^2.0.0`.
-- Node.js `^22.12.0 || ^24.0.0`.
+- Node.js `^22.12.0 || ^24.0.0 || ^26.0.0`. Node.js 26 nécessite Homebridge 2.5.0 ou une version ultérieure.
 - Type de plugin : plateforme dynamique.
 - Format de module : ESM.
 
